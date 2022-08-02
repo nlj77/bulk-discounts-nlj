@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 
 namespace :import do
     desc "import invoice item data from CSV to database"
