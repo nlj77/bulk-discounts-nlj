@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 
 namespace :import do
     desc "import transaction data from CSV to database"
