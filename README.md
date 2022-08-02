@@ -38,3 +38,6 @@ This project requires Ruby 2.7.4.
 1. [User Stories](./doc/user_stories.md)
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
+
+## Notes from Group
+1. Line 19 on application.html.erb needs to be commented out, due to the excessive API requests made by other tests. Please comment this line out, before        running  rspec. 
