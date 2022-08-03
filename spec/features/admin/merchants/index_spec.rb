@@ -162,7 +162,7 @@ RSpec.describe 'admin merchant index' do
         expect(first).to appear_before(second)
 
         within ("#column2") do
-            expect(page.all('.top_5_merchants')[0]).to have_content("Ali Baba - $8,000.00")
+            expect(page.all('.top_5_merchants')[0]).to have_content("Ali Baba - $800.00")
             expect(page.all('.top_5_merchants')[1]).to have_content("Castanza George - $70.00")
             expect(page.all('.top_5_merchants')[2]).to have_content("Allison Bugaboo - $60.00")
             expect(page.all('.top_5_merchants')[3]).to have_content("Joe-Schmo Railroads - $50.00")
