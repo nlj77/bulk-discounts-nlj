@@ -214,10 +214,12 @@ RSpec.describe "merchant dashboard", type: :feature do
     item_2 = Item.create!(name: "Crocs", description: "Worst and Best Shoes", unit_price: 4000, merchant_id: merchant_1.id, created_at: Time.now, updated_at: Time.now)
 
     visit "/merchants/#{merchant_1.id}/dashboard"
-    expect(page).to have_button("Discounts")
-    click_on("Discounts")
-    expect(current_path).to eq("/merchants/#{merchant_1.id}/discounts")
-  
+    within("#merchant-links") do
+
+      expect(page).to have_content("Discounts")
+      click_on("Discounts")
+      expect(current_path).to eq("/merchants/#{merchant_1.id}/discounts")
+    end
   end
 
 end
