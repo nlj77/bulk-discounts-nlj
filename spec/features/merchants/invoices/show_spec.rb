@@ -85,11 +85,11 @@ RSpec.describe 'invoices show page' do
 
       visit "/merchants/#{merchant_1.id}/invoices/#{invoice_1.id}"
 
-       expect(invoice_item_1.status).to eq("packaged")
-       select("pending", from: "status")
-       click_button "Update Item Status"
-       expect(current_path).to eq(merchant_invoice_path(merchant_1, invoice_1))
-       expect(page).to have_content("pending")
-     end
+        expect(invoice_item_1.status).to eq("packaged")
+        select("pending", from: "status")
+        click_button "Update Item Status"
+        expect(current_path).to eq(merchant_invoice_path(merchant_1, invoice_1))
+        expect(page).to have_content("pending")
+      end
 
 end

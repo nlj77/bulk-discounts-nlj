@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :items, controller: :merchant_items
     resources :invoices, controller: 'invoices'
     resources :dashboard, only: [:index]
+    resources :discounts, only: [:index]
+    resources :bulk_discounts, only: [:index, :new, :create, :destroy, :show]
   end
 
 

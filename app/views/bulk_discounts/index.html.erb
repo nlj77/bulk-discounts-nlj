@@ -1,0 +1,8 @@
+<h1> Bulk Discounts Index Page </h1>
+
+<% @bulk_discounts.each do |discount| %>
+    <p><%=discount.name%>, <%= discount.percentage %>%, Quantity Threshold: <%= discount.threshold %></p>
+    <p><%= button_to "Delete #{discount.name}", "/merchants/#{@merchant.id}/bulk_discounts/#{discount.id}", method: :delete %> </p> 
+
+<% end %>
+<p><%= button_to "Create a new discount", "/merchants/#{@merchant.id}/bulk_discounts/new", method: :get %> </p> 

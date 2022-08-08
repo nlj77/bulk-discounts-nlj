@@ -207,4 +207,30 @@ RSpec.describe "merchant dashboard", type: :feature do
     end
   end
 
+  it "has a link to the merchant's discount page" do
+    merchant_1 = Merchant.create!(name: "Schroeder-Jerde", created_at: Time.now, updated_at: Time.now)
+
+    item_1 = Item.create!(name: "Watch", description: "Always a need to tell time", unit_price: 3000, merchant_id: merchant_1.id, created_at: Time.now, updated_at: Time.now)
+    item_2 = Item.create!(name: "Crocs", description: "Worst and Best Shoes", unit_price: 4000, merchant_id: merchant_1.id, created_at: Time.now, updated_at: Time.now)
+
+    visit "/merchants/#{merchant_1.id}/dashboard"
+    within("#merchant-links") do
+
+      expect(page).to have_content("Discounts")
+      click_on("Discounts")
+      expect(current_path).to eq("/merchants/#{merchant_1.id}/discounts")
+    end
+  end
+
 end
+
+# Merchant Bulk Discounts Index
+
+# As a merchant
+# When I visit my merchant dashboard
+# Then I see a link to view all my discounts
+# When I click this link
+# Then I am taken to my bulk discounts index page
+# Where I see all of my bulk discounts including their
+# percentage discount and quantity thresholds
+# And each bulk discount listed includes a link to its show page
