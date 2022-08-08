@@ -21,11 +21,31 @@ RSpec.describe "Bulk Discounts Index Page" do
         discount_c = merchant_1.bulk_discounts.create!(name:"Discount C", percentage: 30, threshold: 40 )
         discount_d = merchant_1.bulk_discounts.create!(name:"Discount D", percentage: 25, threshold: 15 )
         visit "/merchants/#{merchant_1.id}/bulk_discounts"
-        save_and_open_page
+        
         expect(page).to have_content("Discount A, 10%, Quantity Threshold: 10")
         expect(page).to have_content("Discount B, 25%, Quantity Threshold: 20")
         expect(page).to have_content("Discount C, 30%, Quantity Threshold: 40")
         expect(page).to_not have_content("Discount D, 25%, Quantity Threshold:15")
+    end
+
+    it "has a link to create a new discount" do 
+        merchant_1 = Merchant.create!(name: "Joe Schmoe", created_at: Time.now, updated_at: Time.now)
+        merchant_2 = Merchant.create!(name: "John Lennon", created_at: Time.now, updated_at: Time.now)
+
+        discount_a = merchant_1.bulk_discounts.create!(name:"Discount A", percentage: 10, threshold: 10 )
+        discount_b = merchant_1.bulk_discounts.create!(name:"Discount B", percentage: 25, threshold: 20 )
+        discount_c = merchant_1.bulk_discounts.create!(name:"Discount C", percentage: 30, threshold: 40 )
+        discount_d = merchant_1.bulk_discounts.create!(name:"Discount D", percentage: 25, threshold: 15 )
+        visit "/merchants/#{merchant_1.id}/bulk_discounts"
+
+        expect(page).to have_button("Create a new discount")
+
+        click_on("Create a new discount")
+
+        expect(current_path).to eq("/merchants/#{merchant_1.id}/bulk_discounts/new")
+
+
+
     end
 end
 
@@ -39,3 +59,14 @@ end
 # Where I see all of my bulk discounts including their
 # percentage discount and quantity thresholds
 # And each bulk discount listed includes a link to its show page
+
+# Merchant Bulk Discount Create
+
+# As a merchant
+# When I visit my bulk discounts index
+# Then I see a link to create a new discount
+# When I click this link
+# Then I am taken to a new page where I see a form to add a new bulk discount
+# When I fill in the form with valid data
+# Then I am redirected back to the bulk discount index
+# And I see my new bulk discount listed

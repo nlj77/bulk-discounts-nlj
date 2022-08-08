@@ -3,3 +3,4 @@
 <% @bulk_discounts.each do |discount| %>
     <p><%=discount.name%>, <%= discount.percentage %>%, Quantity Threshold: <%= discount.threshold %></p>
 <% end %>
+<p><%= button_to "Create a new discount", "/merchants/#{@merchant.id}/bulk_discounts/new", method: :get %> </p> 
