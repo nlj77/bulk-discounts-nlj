@@ -4,6 +4,7 @@ class Merchant < ApplicationRecord
   validates_presence_of :updated_at
 
   has_many :items, dependent: :destroy
+  has_many :bulk_discounts, dependent: :destroy
   has_many :invoice_items, through: :items
   has_many :invoices, through: :invoice_items
   has_many :transactions, through: :invoices
@@ -13,11 +14,11 @@ class Merchant < ApplicationRecord
 
   def top_5_customers
     Customer.joins(invoices: :transactions)
-             .where(transactions:{result: "success"})
-             .select("customers.*, COUNT(transactions.*) AS trans_count")
-             .group("customers.id")
-             .order(trans_count: :desc)
-             .limit(5)
+              .where(transactions:{result: "success"})
+              .select("customers.*, COUNT(transactions.*) AS trans_count")
+              .group("customers.id")
+              .order(trans_count: :desc)
+              .limit(5)
   end
 
   def items_ready_to_ship
