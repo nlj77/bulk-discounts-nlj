@@ -62,38 +62,12 @@ RSpec.describe "Bulk Discounts Index Page" do
         expect(page).to_not have_content("Discount A")
 
     end
+
+    it "can show upcoming holidays and the next three holidays" do
+        
+    end
 end
 
-# Merchant Bulk Discounts Index
-
-# As a merchant
-# When I visit my merchant dashboard
-# Then I see a link to view all my discounts
-# When I click this link
-# Then I am taken to my bulk discounts index page
-# Where I see all of my bulk discounts including their
-# percentage discount and quantity thresholds
-# And each bulk discount listed includes a link to its show page
-
-# Merchant Bulk Discount Create
-
-# As a merchant
-# When I visit my bulk discounts index
-# Then I see a link to create a new discount
-# When I click this link
-# Then I am taken to a new page where I see a form to add a new bulk discount
-# When I fill in the form with valid data
-# Then I am redirected back to the bulk discount index
-# And I see my new bulk discount listed
-
-# Merchant Bulk Discount Delete
-
-# As a merchant
-# When I visit my bulk discounts index
-# Then next to each bulk discount I see a link to delete it
-# When I click this link
-# Then I am redirected back to the bulk discounts index page
-# And I no longer see the discount listed
 
 # As a merchant
 # When I visit the discounts index page
