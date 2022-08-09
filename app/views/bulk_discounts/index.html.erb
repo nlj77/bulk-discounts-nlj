@@ -1,5 +1,10 @@
 <h1> Bulk Discounts Index Page </h1>
 
+<h3>Upcoming Holidays</h3>
+<% @holidays.each do |holiday|%>
+    <p>Name: <%= holiday.name %></p>
+    <p>Date: <%= holiday.date %></p>
+<% end %>
 <% @bulk_discounts.each do |discount| %>
     <p><%=discount.name%>, <%= discount.percentage %>%, Quantity Threshold: <%= discount.threshold %></p>
     <p><%= button_to "Delete #{discount.name}", "/merchants/#{@merchant.id}/bulk_discounts/#{discount.id}", method: :delete %> </p> 
