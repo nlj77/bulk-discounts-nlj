@@ -122,4 +122,28 @@ RSpec.describe 'admin invoice show page' do
         expect(page).to_not have_content('Invoice status: completed')
         expect(page).to have_content('Invoice status: cancelled')
     end
+
+    it 'can take a total discount' do
+        merchant_1 = Merchant.create!(name: "Schroeder-Jerde", created_at: Time.now, updated_at: Time.now)
+        customer_1 = Customer.create!(first_name: "James", last_name: "Franco", created_at: Time.now, updated_at: Time.now)
+  
+        discount_a = merchant_1.bulk_discounts.create!(name:"Discount A", percentage: 10, threshold: 10 )
+        item_1 = Item.create!(name: "Watch", description: "Always a need to tell time", unit_price: 3000, merchant_id: merchant_1.id, created_at: Time.now, updated_at: Time.now)
+        item_2 = Item.create!(name: "Crocs", description: "Worst and Best Shoes", unit_price: 4000, merchant_id: merchant_1.id, created_at: Time.now, updated_at: Time.now)
+  
+        invoice_1 = customer_1.invoices.create!(status: 1, created_at: Time.now, updated_at: Time.now)
+        invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, quantity: 1, unit_price: item_1.unit_price, status: 2, created_at: Time.now, updated_at: Time.now)
+        invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice_1.id, quantity: 20, unit_price: item_2.unit_price, status: 2, created_at: Time.now, updated_at: Time.now)
+        # require 'pry'; binding.pry
+        visit "admin/invoices/#{invoice_1.id}"
+
+        expect(page).to have_content("Total Discounted Revenue: $82,920.00")
+      end
 end
+
+# Admin Invoice Show Page: Total Revenue and Discounted Revenue
+
+# As an admin
+# When I visit an admin invoice show page
+# Then I see the total revenue from this invoice (not including discounts)
+# And I see the total discounted revenue from this invoice which includes bulk discounts in the calculation

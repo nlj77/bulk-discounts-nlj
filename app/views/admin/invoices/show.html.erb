@@ -21,3 +21,7 @@
     <% end %>
 
 </div>
+
+
+<p>Total Revenue: $<%=@invoice.total_price %></p>
+<p>Total Discounted Revenue: <%= number_to_currency(@invoice.total_price - @invoice.total_discount/100) %></p>
