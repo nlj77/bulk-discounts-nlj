@@ -91,5 +91,22 @@ RSpec.describe 'invoices show page' do
         expect(current_path).to eq(merchant_invoice_path(merchant_1, invoice_1))
         expect(page).to have_content("pending")
       end
+    
+      it 'can take a total discount' do
+        merchant_1 = Merchant.create!(name: "Schroeder-Jerde", created_at: Time.now, updated_at: Time.now)
+        customer_1 = Customer.create!(first_name: "James", last_name: "Franco", created_at: Time.now, updated_at: Time.now)
+  
+        discount_a = merchant_1.bulk_discounts.create!(name:"Discount A", percentage: 10, threshold: 10 )
+        item_1 = Item.create!(name: "Watch", description: "Always a need to tell time", unit_price: 3000, merchant_id: merchant_1.id, created_at: Time.now, updated_at: Time.now)
+        item_2 = Item.create!(name: "Crocs", description: "Worst and Best Shoes", unit_price: 4000, merchant_id: merchant_1.id, created_at: Time.now, updated_at: Time.now)
+  
+        invoice_1 = customer_1.invoices.create!(status: 1, created_at: Time.now, updated_at: Time.now)
+        invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, quantity: 1, unit_price: item_1.unit_price, status: 2, created_at: Time.now, updated_at: Time.now)
+        invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice_1.id, quantity: 20, unit_price: item_2.unit_price, status: 2, created_at: Time.now, updated_at: Time.now)
+        # require 'pry'; binding.pry
+        visit "/merchants/#{merchant_1.id}/invoices/#{invoice_1.id}"
+        save_and_open_page
+        expect(page).to have_content("Total Discounted Revenue: ")
+      end
 
 end
