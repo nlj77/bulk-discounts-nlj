@@ -218,7 +218,7 @@ RSpec.describe "merchant dashboard", type: :feature do
 
       expect(page).to have_content("Discounts")
       click_on("Discounts")
-      expect(current_path).to eq("/merchants/#{merchant_1.id}/discounts")
+      expect(current_path).to eq("/merchants/#{merchant_1.id}/bulk_discounts")
     end
   end
 

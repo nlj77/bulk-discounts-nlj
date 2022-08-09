@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :invoices, controller: 'invoices'
     resources :dashboard, only: [:index]
     resources :discounts, only: [:index]
-    resources :bulk_discounts, only: [:index, :new, :create, :destroy, :show]
+    resources :bulk_discounts, only: [:index, :new, :create, :destroy, :show, :edit, :update]
   end
 
 

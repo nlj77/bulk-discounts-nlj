@@ -28,6 +28,29 @@ class BulkDiscountsController < ApplicationController
     end
 
     def show 
+        @merchant = Merchant.find(params[:merchant_id])
         @bulk_discount = BulkDiscount.find(params[:id])
     end
+
+    def edit 
+        @merchant = Merchant.find(params[:merchant_id])
+        @bulk_discount = BulkDiscount.find(params[:id])
+    end
+
+    def update 
+        @merchant = Merchant.find(params[:merchant_id])
+
+        bulk_discount = BulkDiscount.find(bulk_discount_params[:id])
+        if bulk_discount.update(bulk_discount_params)
+            redirect_to "/merchants/#{@merchant.id}/bulk_discounts/#{bulk_discount.id}"
+        else
+            redirect_to "/merchants/#{@merchant.id}/bulk_discounts/#{bulk_discount.id}/edit"
+            flash[:alert] = "Error: Please fill out all required fields!"
+        end
+    end
+
+    private
+    def bulk_discount_params
+            params.permit(:id, :name, :percentage, :threshold)
+        end
 end
